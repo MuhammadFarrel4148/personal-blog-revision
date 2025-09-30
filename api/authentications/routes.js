@@ -5,3 +5,5 @@ const routes = (handler) => [
         handler: handler.addAuthenticationsHandler
     }
 ];
+
+module.exports = routes;

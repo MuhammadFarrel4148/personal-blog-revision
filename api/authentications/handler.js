@@ -4,6 +4,8 @@ class AuthenticationsHandler {
         this._usersService = UsersService;
         this._tokenManager = TokenManager;
         this._validator = validator;
+
+        this.addAuthenticationsHandler = this.addAuthenticationsHandler.bind(this);
     };
 
     async addAuthenticationsHandler(request, h) {
