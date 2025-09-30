@@ -1,11 +1,34 @@
 const { Pool } = require('pg');
-const InvariantError = require('../../exceptions/invariantError');
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
+const NotFoundError = require('../../exceptions/notFoundError');
+const InvariantError = require('../../exceptions/invariantError');
+const AuthenticationError = require('../../exceptions/authenticationError');
 
 class UsersService {
     constructor() {
         this._pool = new Pool();
+    };
+
+    async verifyCredential(username, password) {
+        const query = {
+            text: `SELECT * FROM users WHERE username = $1`,
+            values: [username]
+        };
+
+        const result = await this._pool.query(query);
+
+        if(!result.rows.length) {
+            throw new NotFoundError('username tidak ditemukan');
+        };
+
+        const matchCredential = await bcrypt.compare(password, result.rows[0].password);
+
+        if(!matchCredential) {
+            throw new AuthenticationError('credential tidak valid');
+        };
+
+        return result.rows[0].id;
     };
 
     async verifyUsername(username) {
