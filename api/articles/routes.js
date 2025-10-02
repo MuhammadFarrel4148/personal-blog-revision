@@ -14,6 +14,14 @@ const routes = (handler) => [
         options: {
             auth: 'personalblog_jwt'
         }
+    },
+    {
+        method: 'DELETE',
+        path: '/articles/{id}',
+        handler: handler.deleteArticlesHandler,
+        options: {
+            auth: 'personalblog_jwt'
+        }
     }
 ];
 

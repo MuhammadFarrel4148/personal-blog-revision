@@ -5,6 +5,7 @@ class ArticlesHandler {
 
         this.addArticlesHandler = this.addArticlesHandler.bind(this);
         this.updateArticlesHandler = this.updateArticlesHandler.bind(this);
+        this.deleteArticlesHandler = this.deleteArticlesHandler.bind(this);
     };
 
     async addArticlesHandler(request, h) {
@@ -39,6 +40,22 @@ class ArticlesHandler {
         const response = h.response({
             status: 'success',
             message: 'article berhasil diupdate'
+        });
+        response.code(201);
+        return response;
+    };
+
+    async deleteArticlesHandler(request, h) {
+        const { id: credentialId } = request.auth.credentials;
+        const { id } = request.params;
+
+        await this._articlesService.verifyArticles(id, credentialId);
+
+        await this._articlesService.deleteArticlesService(id);
+
+        const response = h.response({
+            status: 'success',
+            message: 'article berhasil dihapus'
         });
         response.code(201);
         return response;

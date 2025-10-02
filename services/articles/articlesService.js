@@ -51,6 +51,15 @@ class ArticlesService {
 
         await this._pool.query(query);
     };
+
+    async deleteArticlesService(articleId) {
+        const query = {
+            text: `DELETE FROM articles WHERE id = $1`,
+            values: [articleId]
+        };
+
+        await this._pool.query(query);
+    };
 };
 
 module.exports = ArticlesService;
