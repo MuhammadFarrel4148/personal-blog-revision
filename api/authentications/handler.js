@@ -7,6 +7,7 @@ class AuthenticationsHandler {
 
         this.addAuthenticationsHandler = this.addAuthenticationsHandler.bind(this);
         this.putAuthenticationsHandler = this.putAuthenticationsHandler.bind(this);
+        this.deleteAuthenticationsHandler = this.deleteAuthenticationsHandler.bind(this);
     };
 
     async addAuthenticationsHandler(request, h) {
@@ -47,6 +48,23 @@ class AuthenticationsHandler {
             data: {
                 accessToken
             }
+        });
+        response.code(201);
+        return response;
+    };
+
+    async deleteAuthenticationsHandler(request, h) {
+        await this._validator.validatePutAuthenticationPayload(request.payload);
+
+        const { refreshToken } = request.payload;
+
+        await this._authenticationsService.verifyToken(refreshToken);
+
+        await this._authenticationsService.deleteTokenService(refreshToken);
+
+        const response = h.response({
+            status: 'success',
+            message: 'token berhasil dihapus'
         });
         response.code(201);
         return response;

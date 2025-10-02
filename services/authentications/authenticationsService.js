@@ -27,6 +27,19 @@ class AuthenticationsService {
 
         await this._pool.query(query);
     };
+
+    async deleteTokenService(token) {
+        const query = {
+            text: `DELETE FROM authentications WHERE token = $1 RETURNING token`,
+            values: [token]
+        };
+
+        const result = await this._pool.query(query);
+
+        if(!result.rows.length) {
+            throw new InvariantError('token tidak valid');
+        };
+    };
 };
 
 module.exports = AuthenticationsService;
