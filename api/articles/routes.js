@@ -6,6 +6,14 @@ const routes = (handler) => [
         options: {
             auth: 'personalblog_jwt'
         }
+    },
+    {
+        method: 'PUT',
+        path: '/articles/{id}',
+        handler: handler.updateArticlesHandler,
+        options: {
+            auth: 'personalblog_jwt'
+        }
     }
 ];
 
