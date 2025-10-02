@@ -13,6 +13,10 @@ export const up = (pgm) => {
         title: {
             type: 'TEXT',
             notNull: true
+        },
+        user: {
+            type: 'VARCHAR(50)',
+            notNull: true
         }
     });
 };
@@ -24,4 +28,5 @@ export const up = (pgm) => {
  */
 export const down = (pgm) => {
     pgm.dropColumn('articles', 'title');
+    pgm.dropColumn('articles', 'user');
 };
