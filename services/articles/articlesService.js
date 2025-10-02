@@ -11,7 +11,7 @@ class ArticlesService {
         const id = `article-${nanoid(16)}`;
 
         const query = {
-            text: `INSERT INTO articles(id, date, content, title, user) RETURNING ID`,
+            text: `INSERT INTO articles VALUES($1, $2, $3, $4, $5) RETURNING id`,
             values: [id, date, content, title, userId]
         };
 

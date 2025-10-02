@@ -1,7 +1,7 @@
 const InvariantError = require('../../exceptions/invariantError');
 const addArticlesSchema = require('./schema');
 
-const articleValidator = {
+const ArticleValidator = {
     validateAddArticlePayload: (payload) => {
         const validationResult = addArticlesSchema.validate(payload);
 
@@ -11,4 +11,4 @@ const articleValidator = {
     }
 };
 
-module.exports = articleValidator;
+module.exports = ArticleValidator;

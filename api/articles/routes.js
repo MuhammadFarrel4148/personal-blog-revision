@@ -2,7 +2,10 @@ const routes = (handler) => [
     {
         method: 'POST',
         path: '/articles',
-        handler: handler.addArticlesHandler
+        handler: handler.addArticlesHandler,
+        options: {
+            auth: 'personalblog_jwt'
+        }
     }
 ];
 
